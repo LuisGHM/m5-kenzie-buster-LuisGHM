@@ -3,7 +3,6 @@ from .serializers import MovieSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Movies
-import pdb
 
 # Create your views here.
 

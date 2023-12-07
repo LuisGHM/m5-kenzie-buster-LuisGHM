@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import RatingOpt, Movies
-import pdb
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
