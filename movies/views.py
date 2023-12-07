@@ -3,6 +3,7 @@ from .serializers import MovieSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Movies
+import pdb
 
 # Create your views here.
 
@@ -22,3 +23,23 @@ class MovieView(APIView):
         movies = Movies.objects.all()
         serializer_movies = MovieSerializer(movies, many=True)
         return Response(serializer_movies.data)
+
+
+class MovieByIdView(APIView):
+    
+    def get(self, request: Request, movie_id) -> Response:
+        try: 
+            movie = Movies.objects.get(id=movie_id)
+        except Movies.DoesNotExist:
+            return Response({"detail": "Not found."}, status.HTTP_404_NOT_FOUND)
+        serializer_movie = MovieSerializer(movie)
+        return Response(serializer_movie.data)
+    
+    
+    def delete(self, request: Request, movie_id) -> Response:
+        try: 
+            movie = Movies.objects.get(id=movie_id)
+        except Movies.DoesNotExist:
+            return Response({"detail": "Not found."}, status.HTTP_404_NOT_FOUND)
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
