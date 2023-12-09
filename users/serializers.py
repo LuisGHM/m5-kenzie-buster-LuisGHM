@@ -10,7 +10,7 @@ class UserSerializer(serializers.Serializer):
     email = serializers.EmailField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
-    birthdate = serializers.DateField()
+    birthdate = serializers.DateField(required=False)
     is_employee = serializers.BooleanField(default=False)
     is_superuser = serializers.BooleanField(read_only=True)
     password = serializers.CharField(write_only=True)
@@ -21,10 +21,10 @@ class UserSerializer(serializers.Serializer):
         errors = {}
 
         if email and User.objects.filter(email=email).exists():
-            errors['email'] = 'Email already registered.'
+            errors['email'] = 'email already registered.'
 
         if username and User.objects.filter(username=username).exists():
-            errors['username'] = 'Username already taken.'
+            errors['username'] = 'username already taken.'
 
         if errors:
             raise ValidationError(errors)

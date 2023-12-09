@@ -9,9 +9,9 @@ class RatingOpt(models.TextChoices):
     R = "R"
     NC_17 = "NC-17"
 
-class Movies(models.Model):
+class Movie(models.Model):
     title = models.CharField(max_length=127)
-    duration = models.CharField(max_length=10, null=True, default="")
+    duration = models.CharField(max_length=10, blank=True, default="")
     rating = models.CharField(max_length=20, choices=RatingOpt.choices, default=RatingOpt.G)
-    synopsis = models.TextField(default="")
+    synopsis = models.TextField(blank=True, default="")
     user = models.ForeignKey("users.User", on_delete=models.PROTECT, related_name="movies")
