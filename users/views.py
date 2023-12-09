@@ -30,6 +30,7 @@ class UserByIdView(APIView):
     
     def patch(self, request: Request, user_id):
         user = get_object_or_404(User, id=user_id)
+        self.check_object_permissions(request, user)
         user_serialized = UserSerializer(user, request.data, partial=True)
         user_serialized.is_valid(raise_exception=True)
         user_serialized.save()

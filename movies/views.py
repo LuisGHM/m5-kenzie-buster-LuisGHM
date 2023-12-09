@@ -24,7 +24,7 @@ class MovieView(APIView, PageNumberPagination):
         movies = Movie.objects.all()
         result_page = self.paginate_queryset(movies, request)
         serializer_movies = MovieSerializer(result_page, many=True)
-        return Response(serializer_movies.data)
+        return self.get_paginated_response(serializer_movies.data)
 
 
 class MovieByIdView(APIView):

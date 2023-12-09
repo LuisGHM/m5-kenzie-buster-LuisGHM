@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 from rest_framework.views import Request, View
 from .models import User
-import ipdb
+import pdb
 
 class IsOwner(BasePermission):
     def has_object_permission(self, request: Request, view: View, obj: User):

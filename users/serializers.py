@@ -46,8 +46,11 @@ class UserSerializer(serializers.Serializer):
         instance.last_name = validated_data.get("last_name", instance.last_name)
         instance.birthdate = validated_data.get("birthdate", instance.birthdate)
         instance.is_employee = validated_data.get("is_employee", instance.is_employee)
-        instance.is_superuser = validated_data.get("is_employee", instance.is_employee)
-        instance.password = validated_data.get("password", instance.password)
+        instance.is_superuser = validated_data.get("is_superuser", instance.is_superuser)
+        
+        password = validated_data.get("password")
+        if password:
+            instance.set_password(password)
         
         instance.save()
         
