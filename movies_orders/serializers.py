@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import MovieOrder
 from movies.models import Movies
-import pdb
 
 class MovieOrderSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
