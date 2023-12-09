@@ -38,6 +38,20 @@ class UserSerializer(serializers.Serializer):
             user = User.objects.create_superuser(**validated_data)
 
         return user
+    
+    def update(self, instance: User, validated_data: dict):
+        instance.username = validated_data.get("username", instance.username)
+        instance.email = validated_data.get("email", instance.email)
+        instance.first_name = validated_data.get("first_name", instance.first_name)
+        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.birthdate = validated_data.get("birthdate", instance.birthdate)
+        instance.is_employee = validated_data.get("is_employee", instance.is_employee)
+        instance.is_superuser = validated_data.get("is_employee", instance.is_employee)
+        instance.password = validated_data.get("password", instance.password)
+        
+        instance.save()
+        
+        return instance
 
 
 class CustomJWTSerializer(TokenObtainPairSerializer):

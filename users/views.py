@@ -6,6 +6,7 @@ from .models import User
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .permissions import IsOwner
+import pdb
 
 # Create your views here.
 class UserView(APIView):
@@ -25,6 +26,13 @@ class UserByIdView(APIView):
         self.check_object_permissions(request, user)
         user_serialized = UserSerializer(user)
         
+        return Response(user_serialized.data)
+    
+    def patch(self, request: Request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        user_serialized = UserSerializer(user, request.data, partial=True)
+        user_serialized.is_valid(raise_exception=True)
+        user_serialized.save()
         return Response(user_serialized.data)
 
 
